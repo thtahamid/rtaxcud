@@ -1,0 +1,196 @@
+junction_id,junction_name,program,active_hours,cycle_length_s,phase_id,movement,green_s,yellow_s,all_red_s,min_green_s,max_green_s,coordination_offset_s,control_type
+JCT_DEF,Defence Roundabout Signals,Early Morning,00:00-06:00,70,P1,NS Through,17,3,2,8,27,0,SCOOT-adaptive
+JCT_DEF,Defence Roundabout Signals,Early Morning,00:00-06:00,70,P2,NS Left,8,3,2,7,13,0,SCOOT-adaptive
+JCT_DEF,Defence Roundabout Signals,Early Morning,00:00-06:00,70,P3,EW Through,17,3,2,8,27,0,SCOOT-adaptive
+JCT_DEF,Defence Roundabout Signals,Early Morning,00:00-06:00,70,P4,EW Left,8,3,2,7,13,0,SCOOT-adaptive
+JCT_DEF,Defence Roundabout Signals,AM Peak,06:00-10:00,140,P1,NS Through,41,3,2,20,66,12,SCOOT-adaptive
+JCT_DEF,Defence Roundabout Signals,AM Peak,06:00-10:00,140,P2,NS Left,19,3,2,10,30,12,SCOOT-adaptive
+JCT_DEF,Defence Roundabout Signals,AM Peak,06:00-10:00,140,P3,EW Through,41,3,2,20,66,12,SCOOT-adaptive
+JCT_DEF,Defence Roundabout Signals,AM Peak,06:00-10:00,140,P4,EW Left,19,3,2,10,30,12,SCOOT-adaptive
+JCT_DEF,Defence Roundabout Signals,Midday,10:00-16:00,100,P1,NS Through,27,3,2,14,43,8,SCOOT-adaptive
+JCT_DEF,Defence Roundabout Signals,Midday,10:00-16:00,100,P2,NS Left,13,3,2,7,21,8,SCOOT-adaptive
+JCT_DEF,Defence Roundabout Signals,Midday,10:00-16:00,100,P3,EW Through,27,3,2,14,43,8,SCOOT-adaptive
+JCT_DEF,Defence Roundabout Signals,Midday,10:00-16:00,100,P4,EW Left,13,3,2,7,21,8,SCOOT-adaptive
+JCT_DEF,Defence Roundabout Signals,PM Peak,16:00-20:00,150,P1,NS Through,44,3,2,22,70,18,SCOOT-adaptive
+JCT_DEF,Defence Roundabout Signals,PM Peak,16:00-20:00,150,P2,NS Left,21,3,2,10,34,18,SCOOT-adaptive
+JCT_DEF,Defence Roundabout Signals,PM Peak,16:00-20:00,150,P3,EW Through,44,3,2,22,70,18,SCOOT-adaptive
+JCT_DEF,Defence Roundabout Signals,PM Peak,16:00-20:00,150,P4,EW Left,21,3,2,10,34,18,SCOOT-adaptive
+JCT_DEF,Defence Roundabout Signals,Evening,20:00-24:00,90,P1,NS Through,24,3,2,12,38,0,SCOOT-adaptive
+JCT_DEF,Defence Roundabout Signals,Evening,20:00-24:00,90,P2,NS Left,11,3,2,7,18,0,SCOOT-adaptive
+JCT_DEF,Defence Roundabout Signals,Evening,20:00-24:00,90,P3,EW Through,24,3,2,12,38,0,SCOOT-adaptive
+JCT_DEF,Defence Roundabout Signals,Evening,20:00-24:00,90,P4,EW Left,11,3,2,7,18,0,SCOOT-adaptive
+JCT_SAFA,Al Safa Junction,Early Morning,00:00-06:00,70,P1,NS Through,17,3,2,8,27,0,SCOOT-adaptive
+JCT_SAFA,Al Safa Junction,Early Morning,00:00-06:00,70,P2,NS Left,8,3,2,7,13,0,SCOOT-adaptive
+JCT_SAFA,Al Safa Junction,Early Morning,00:00-06:00,70,P3,EW Through,17,3,2,8,27,0,SCOOT-adaptive
+JCT_SAFA,Al Safa Junction,Early Morning,00:00-06:00,70,P4,EW Left,8,3,2,7,13,0,SCOOT-adaptive
+JCT_SAFA,Al Safa Junction,AM Peak,06:00-10:00,140,P1,NS Through,41,3,2,20,66,12,SCOOT-adaptive
+JCT_SAFA,Al Safa Junction,AM Peak,06:00-10:00,140,P2,NS Left,19,3,2,10,30,12,SCOOT-adaptive
+JCT_SAFA,Al Safa Junction,AM Peak,06:00-10:00,140,P3,EW Through,41,3,2,20,66,12,SCOOT-adaptive
+JCT_SAFA,Al Safa Junction,AM Peak,06:00-10:00,140,P4,EW Left,19,3,2,10,30,12,SCOOT-adaptive
+JCT_SAFA,Al Safa Junction,Midday,10:00-16:00,100,P1,NS Through,27,3,2,14,43,8,SCOOT-adaptive
+JCT_SAFA,Al Safa Junction,Midday,10:00-16:00,100,P2,NS Left,13,3,2,7,21,8,SCOOT-adaptive
+JCT_SAFA,Al Safa Junction,Midday,10:00-16:00,100,P3,EW Through,27,3,2,14,43,8,SCOOT-adaptive
+JCT_SAFA,Al Safa Junction,Midday,10:00-16:00,100,P4,EW Left,13,3,2,7,21,8,SCOOT-adaptive
+JCT_SAFA,Al Safa Junction,PM Peak,16:00-20:00,150,P1,NS Through,44,3,2,22,70,18,SCOOT-adaptive
+JCT_SAFA,Al Safa Junction,PM Peak,16:00-20:00,150,P2,NS Left,21,3,2,10,34,18,SCOOT-adaptive
+JCT_SAFA,Al Safa Junction,PM Peak,16:00-20:00,150,P3,EW Through,44,3,2,22,70,18,SCOOT-adaptive
+JCT_SAFA,Al Safa Junction,PM Peak,16:00-20:00,150,P4,EW Left,21,3,2,10,34,18,SCOOT-adaptive
+JCT_SAFA,Al Safa Junction,Evening,20:00-24:00,90,P1,NS Through,24,3,2,12,38,0,SCOOT-adaptive
+JCT_SAFA,Al Safa Junction,Evening,20:00-24:00,90,P2,NS Left,11,3,2,7,18,0,SCOOT-adaptive
+JCT_SAFA,Al Safa Junction,Evening,20:00-24:00,90,P3,EW Through,24,3,2,12,38,0,SCOOT-adaptive
+JCT_SAFA,Al Safa Junction,Evening,20:00-24:00,90,P4,EW Left,11,3,2,7,18,0,SCOOT-adaptive
+JCT_WASL,Al Wasl / Al Hadiqa Junction,Early Morning,00:00-06:00,70,P1,NS Through,17,3,2,8,27,0,Fixed-time
+JCT_WASL,Al Wasl / Al Hadiqa Junction,Early Morning,00:00-06:00,70,P2,NS Left,8,3,2,7,13,0,Fixed-time
+JCT_WASL,Al Wasl / Al Hadiqa Junction,Early Morning,00:00-06:00,70,P3,EW Through,17,3,2,8,27,0,Fixed-time
+JCT_WASL,Al Wasl / Al Hadiqa Junction,Early Morning,00:00-06:00,70,P4,EW Left,8,3,2,7,13,0,Fixed-time
+JCT_WASL,Al Wasl / Al Hadiqa Junction,AM Peak,06:00-10:00,140,P1,NS Through,41,3,2,20,66,12,Fixed-time
+JCT_WASL,Al Wasl / Al Hadiqa Junction,AM Peak,06:00-10:00,140,P2,NS Left,19,3,2,10,30,12,Fixed-time
+JCT_WASL,Al Wasl / Al Hadiqa Junction,AM Peak,06:00-10:00,140,P3,EW Through,41,3,2,20,66,12,Fixed-time
+JCT_WASL,Al Wasl / Al Hadiqa Junction,AM Peak,06:00-10:00,140,P4,EW Left,19,3,2,10,30,12,Fixed-time
+JCT_WASL,Al Wasl / Al Hadiqa Junction,Midday,10:00-16:00,100,P1,NS Through,27,3,2,14,43,8,Fixed-time
+JCT_WASL,Al Wasl / Al Hadiqa Junction,Midday,10:00-16:00,100,P2,NS Left,13,3,2,7,21,8,Fixed-time
+JCT_WASL,Al Wasl / Al Hadiqa Junction,Midday,10:00-16:00,100,P3,EW Through,27,3,2,14,43,8,Fixed-time
+JCT_WASL,Al Wasl / Al Hadiqa Junction,Midday,10:00-16:00,100,P4,EW Left,13,3,2,7,21,8,Fixed-time
+JCT_WASL,Al Wasl / Al Hadiqa Junction,PM Peak,16:00-20:00,150,P1,NS Through,44,3,2,22,70,18,Fixed-time
+JCT_WASL,Al Wasl / Al Hadiqa Junction,PM Peak,16:00-20:00,150,P2,NS Left,21,3,2,10,34,18,Fixed-time
+JCT_WASL,Al Wasl / Al Hadiqa Junction,PM Peak,16:00-20:00,150,P3,EW Through,44,3,2,22,70,18,Fixed-time
+JCT_WASL,Al Wasl / Al Hadiqa Junction,PM Peak,16:00-20:00,150,P4,EW Left,21,3,2,10,34,18,Fixed-time
+JCT_WASL,Al Wasl / Al Hadiqa Junction,Evening,20:00-24:00,90,P1,NS Through,24,3,2,12,38,0,Fixed-time
+JCT_WASL,Al Wasl / Al Hadiqa Junction,Evening,20:00-24:00,90,P2,NS Left,11,3,2,7,18,0,Fixed-time
+JCT_WASL,Al Wasl / Al Hadiqa Junction,Evening,20:00-24:00,90,P3,EW Through,24,3,2,12,38,0,Fixed-time
+JCT_WASL,Al Wasl / Al Hadiqa Junction,Evening,20:00-24:00,90,P4,EW Left,11,3,2,7,18,0,Fixed-time
+JCT_OUD,Oud Metha Junction,Early Morning,00:00-06:00,70,P1,NS Through,17,3,2,8,27,0,SCOOT-adaptive
+JCT_OUD,Oud Metha Junction,Early Morning,00:00-06:00,70,P2,NS Left,8,3,2,7,13,0,SCOOT-adaptive
+JCT_OUD,Oud Metha Junction,Early Morning,00:00-06:00,70,P3,EW Through,17,3,2,8,27,0,SCOOT-adaptive
+JCT_OUD,Oud Metha Junction,Early Morning,00:00-06:00,70,P4,EW Left,8,3,2,7,13,0,SCOOT-adaptive
+JCT_OUD,Oud Metha Junction,AM Peak,06:00-10:00,140,P1,NS Through,41,3,2,20,66,12,SCOOT-adaptive
+JCT_OUD,Oud Metha Junction,AM Peak,06:00-10:00,140,P2,NS Left,19,3,2,10,30,12,SCOOT-adaptive
+JCT_OUD,Oud Metha Junction,AM Peak,06:00-10:00,140,P3,EW Through,41,3,2,20,66,12,SCOOT-adaptive
+JCT_OUD,Oud Metha Junction,AM Peak,06:00-10:00,140,P4,EW Left,19,3,2,10,30,12,SCOOT-adaptive
+JCT_OUD,Oud Metha Junction,Midday,10:00-16:00,100,P1,NS Through,27,3,2,14,43,8,SCOOT-adaptive
+JCT_OUD,Oud Metha Junction,Midday,10:00-16:00,100,P2,NS Left,13,3,2,7,21,8,SCOOT-adaptive
+JCT_OUD,Oud Metha Junction,Midday,10:00-16:00,100,P3,EW Through,27,3,2,14,43,8,SCOOT-adaptive
+JCT_OUD,Oud Metha Junction,Midday,10:00-16:00,100,P4,EW Left,13,3,2,7,21,8,SCOOT-adaptive
+JCT_OUD,Oud Metha Junction,PM Peak,16:00-20:00,150,P1,NS Through,44,3,2,22,70,18,SCOOT-adaptive
+JCT_OUD,Oud Metha Junction,PM Peak,16:00-20:00,150,P2,NS Left,21,3,2,10,34,18,SCOOT-adaptive
+JCT_OUD,Oud Metha Junction,PM Peak,16:00-20:00,150,P3,EW Through,44,3,2,22,70,18,SCOOT-adaptive
+JCT_OUD,Oud Metha Junction,PM Peak,16:00-20:00,150,P4,EW Left,21,3,2,10,34,18,SCOOT-adaptive
+JCT_OUD,Oud Metha Junction,Evening,20:00-24:00,90,P1,NS Through,24,3,2,12,38,0,SCOOT-adaptive
+JCT_OUD,Oud Metha Junction,Evening,20:00-24:00,90,P2,NS Left,11,3,2,7,18,0,SCOOT-adaptive
+JCT_OUD,Oud Metha Junction,Evening,20:00-24:00,90,P3,EW Through,24,3,2,12,38,0,SCOOT-adaptive
+JCT_OUD,Oud Metha Junction,Evening,20:00-24:00,90,P4,EW Left,11,3,2,7,18,0,SCOOT-adaptive
+JCT_GARH,Al Garhoud Junction,Early Morning,00:00-06:00,70,P1,NS Through,17,3,2,8,27,0,SCOOT-adaptive
+JCT_GARH,Al Garhoud Junction,Early Morning,00:00-06:00,70,P2,NS Left,8,3,2,7,13,0,SCOOT-adaptive
+JCT_GARH,Al Garhoud Junction,Early Morning,00:00-06:00,70,P3,EW Through,17,3,2,8,27,0,SCOOT-adaptive
+JCT_GARH,Al Garhoud Junction,Early Morning,00:00-06:00,70,P4,EW Left,8,3,2,7,13,0,SCOOT-adaptive
+JCT_GARH,Al Garhoud Junction,AM Peak,06:00-10:00,140,P1,NS Through,41,3,2,20,66,12,SCOOT-adaptive
+JCT_GARH,Al Garhoud Junction,AM Peak,06:00-10:00,140,P2,NS Left,19,3,2,10,30,12,SCOOT-adaptive
+JCT_GARH,Al Garhoud Junction,AM Peak,06:00-10:00,140,P3,EW Through,41,3,2,20,66,12,SCOOT-adaptive
+JCT_GARH,Al Garhoud Junction,AM Peak,06:00-10:00,140,P4,EW Left,19,3,2,10,30,12,SCOOT-adaptive
+JCT_GARH,Al Garhoud Junction,Midday,10:00-16:00,100,P1,NS Through,27,3,2,14,43,8,SCOOT-adaptive
+JCT_GARH,Al Garhoud Junction,Midday,10:00-16:00,100,P2,NS Left,13,3,2,7,21,8,SCOOT-adaptive
+JCT_GARH,Al Garhoud Junction,Midday,10:00-16:00,100,P3,EW Through,27,3,2,14,43,8,SCOOT-adaptive
+JCT_GARH,Al Garhoud Junction,Midday,10:00-16:00,100,P4,EW Left,13,3,2,7,21,8,SCOOT-adaptive
+JCT_GARH,Al Garhoud Junction,PM Peak,16:00-20:00,150,P1,NS Through,44,3,2,22,70,18,SCOOT-adaptive
+JCT_GARH,Al Garhoud Junction,PM Peak,16:00-20:00,150,P2,NS Left,21,3,2,10,34,18,SCOOT-adaptive
+JCT_GARH,Al Garhoud Junction,PM Peak,16:00-20:00,150,P3,EW Through,44,3,2,22,70,18,SCOOT-adaptive
+JCT_GARH,Al Garhoud Junction,PM Peak,16:00-20:00,150,P4,EW Left,21,3,2,10,34,18,SCOOT-adaptive
+JCT_GARH,Al Garhoud Junction,Evening,20:00-24:00,90,P1,NS Through,24,3,2,12,38,0,SCOOT-adaptive
+JCT_GARH,Al Garhoud Junction,Evening,20:00-24:00,90,P2,NS Left,11,3,2,7,18,0,SCOOT-adaptive
+JCT_GARH,Al Garhoud Junction,Evening,20:00-24:00,90,P3,EW Through,24,3,2,12,38,0,SCOOT-adaptive
+JCT_GARH,Al Garhoud Junction,Evening,20:00-24:00,90,P4,EW Left,11,3,2,7,18,0,SCOOT-adaptive
+JCT_MAMZ,Al Mamzar Junction,Early Morning,00:00-06:00,70,P1,NS Through,17,3,2,8,27,0,Fixed-time
+JCT_MAMZ,Al Mamzar Junction,Early Morning,00:00-06:00,70,P2,NS Left,8,3,2,7,13,0,Fixed-time
+JCT_MAMZ,Al Mamzar Junction,Early Morning,00:00-06:00,70,P3,EW Through,17,3,2,8,27,0,Fixed-time
+JCT_MAMZ,Al Mamzar Junction,Early Morning,00:00-06:00,70,P4,EW Left,8,3,2,7,13,0,Fixed-time
+JCT_MAMZ,Al Mamzar Junction,AM Peak,06:00-10:00,140,P1,NS Through,41,3,2,20,66,12,Fixed-time
+JCT_MAMZ,Al Mamzar Junction,AM Peak,06:00-10:00,140,P2,NS Left,19,3,2,10,30,12,Fixed-time
+JCT_MAMZ,Al Mamzar Junction,AM Peak,06:00-10:00,140,P3,EW Through,41,3,2,20,66,12,Fixed-time
+JCT_MAMZ,Al Mamzar Junction,AM Peak,06:00-10:00,140,P4,EW Left,19,3,2,10,30,12,Fixed-time
+JCT_MAMZ,Al Mamzar Junction,Midday,10:00-16:00,100,P1,NS Through,27,3,2,14,43,8,Fixed-time
+JCT_MAMZ,Al Mamzar Junction,Midday,10:00-16:00,100,P2,NS Left,13,3,2,7,21,8,Fixed-time
+JCT_MAMZ,Al Mamzar Junction,Midday,10:00-16:00,100,P3,EW Through,27,3,2,14,43,8,Fixed-time
+JCT_MAMZ,Al Mamzar Junction,Midday,10:00-16:00,100,P4,EW Left,13,3,2,7,21,8,Fixed-time
+JCT_MAMZ,Al Mamzar Junction,PM Peak,16:00-20:00,150,P1,NS Through,44,3,2,22,70,18,Fixed-time
+JCT_MAMZ,Al Mamzar Junction,PM Peak,16:00-20:00,150,P2,NS Left,21,3,2,10,34,18,Fixed-time
+JCT_MAMZ,Al Mamzar Junction,PM Peak,16:00-20:00,150,P3,EW Through,44,3,2,22,70,18,Fixed-time
+JCT_MAMZ,Al Mamzar Junction,PM Peak,16:00-20:00,150,P4,EW Left,21,3,2,10,34,18,Fixed-time
+JCT_MAMZ,Al Mamzar Junction,Evening,20:00-24:00,90,P1,NS Through,24,3,2,12,38,0,Fixed-time
+JCT_MAMZ,Al Mamzar Junction,Evening,20:00-24:00,90,P2,NS Left,11,3,2,7,18,0,Fixed-time
+JCT_MAMZ,Al Mamzar Junction,Evening,20:00-24:00,90,P3,EW Through,24,3,2,12,38,0,Fixed-time
+JCT_MAMZ,Al Mamzar Junction,Evening,20:00-24:00,90,P4,EW Left,11,3,2,7,18,0,Fixed-time
+JCT_QUOZ,Al Quoz Junction,Early Morning,00:00-06:00,70,P1,NS Through,23,3,2,12,37,0,Fixed-time
+JCT_QUOZ,Al Quoz Junction,Early Morning,00:00-06:00,70,P2,EW Through,19,3,2,10,30,0,Fixed-time
+JCT_QUOZ,Al Quoz Junction,Early Morning,00:00-06:00,70,P3,EW Left,13,3,2,7,21,0,Fixed-time
+JCT_QUOZ,Al Quoz Junction,AM Peak,06:00-10:00,140,P1,NS Through,52,3,2,26,83,12,Fixed-time
+JCT_QUOZ,Al Quoz Junction,AM Peak,06:00-10:00,140,P2,EW Through,42,3,2,21,67,12,Fixed-time
+JCT_QUOZ,Al Quoz Junction,AM Peak,06:00-10:00,140,P3,EW Left,30,3,2,15,48,12,Fixed-time
+JCT_QUOZ,Al Quoz Junction,Midday,10:00-16:00,100,P1,NS Through,36,3,2,18,58,8,Fixed-time
+JCT_QUOZ,Al Quoz Junction,Midday,10:00-16:00,100,P2,EW Through,29,3,2,14,46,8,Fixed-time
+JCT_QUOZ,Al Quoz Junction,Midday,10:00-16:00,100,P3,EW Left,20,3,2,10,32,8,Fixed-time
+JCT_QUOZ,Al Quoz Junction,PM Peak,16:00-20:00,150,P1,NS Through,57,3,2,28,91,18,Fixed-time
+JCT_QUOZ,Al Quoz Junction,PM Peak,16:00-20:00,150,P2,EW Through,46,3,2,23,74,18,Fixed-time
+JCT_QUOZ,Al Quoz Junction,PM Peak,16:00-20:00,150,P3,EW Left,32,3,2,16,51,18,Fixed-time
+JCT_QUOZ,Al Quoz Junction,Evening,20:00-24:00,90,P1,NS Through,32,3,2,16,51,0,Fixed-time
+JCT_QUOZ,Al Quoz Junction,Evening,20:00-24:00,90,P2,EW Through,26,3,2,13,42,0,Fixed-time
+JCT_QUOZ,Al Quoz Junction,Evening,20:00-24:00,90,P3,EW Left,18,3,2,9,29,0,Fixed-time
+JCT_BARSHA,Al Barsha Junction,Early Morning,00:00-06:00,70,P1,NS Through,17,3,2,8,27,0,SCOOT-adaptive
+JCT_BARSHA,Al Barsha Junction,Early Morning,00:00-06:00,70,P2,NS Left,8,3,2,7,13,0,SCOOT-adaptive
+JCT_BARSHA,Al Barsha Junction,Early Morning,00:00-06:00,70,P3,EW Through,17,3,2,8,27,0,SCOOT-adaptive
+JCT_BARSHA,Al Barsha Junction,Early Morning,00:00-06:00,70,P4,EW Left,8,3,2,7,13,0,SCOOT-adaptive
+JCT_BARSHA,Al Barsha Junction,AM Peak,06:00-10:00,140,P1,NS Through,41,3,2,20,66,12,SCOOT-adaptive
+JCT_BARSHA,Al Barsha Junction,AM Peak,06:00-10:00,140,P2,NS Left,19,3,2,10,30,12,SCOOT-adaptive
+JCT_BARSHA,Al Barsha Junction,AM Peak,06:00-10:00,140,P3,EW Through,41,3,2,20,66,12,SCOOT-adaptive
+JCT_BARSHA,Al Barsha Junction,AM Peak,06:00-10:00,140,P4,EW Left,19,3,2,10,30,12,SCOOT-adaptive
+JCT_BARSHA,Al Barsha Junction,Midday,10:00-16:00,100,P1,NS Through,27,3,2,14,43,8,SCOOT-adaptive
+JCT_BARSHA,Al Barsha Junction,Midday,10:00-16:00,100,P2,NS Left,13,3,2,7,21,8,SCOOT-adaptive
+JCT_BARSHA,Al Barsha Junction,Midday,10:00-16:00,100,P3,EW Through,27,3,2,14,43,8,SCOOT-adaptive
+JCT_BARSHA,Al Barsha Junction,Midday,10:00-16:00,100,P4,EW Left,13,3,2,7,21,8,SCOOT-adaptive
+JCT_BARSHA,Al Barsha Junction,PM Peak,16:00-20:00,150,P1,NS Through,44,3,2,22,70,18,SCOOT-adaptive
+JCT_BARSHA,Al Barsha Junction,PM Peak,16:00-20:00,150,P2,NS Left,21,3,2,10,34,18,SCOOT-adaptive
+JCT_BARSHA,Al Barsha Junction,PM Peak,16:00-20:00,150,P3,EW Through,44,3,2,22,70,18,SCOOT-adaptive
+JCT_BARSHA,Al Barsha Junction,PM Peak,16:00-20:00,150,P4,EW Left,21,3,2,10,34,18,SCOOT-adaptive
+JCT_BARSHA,Al Barsha Junction,Evening,20:00-24:00,90,P1,NS Through,24,3,2,12,38,0,SCOOT-adaptive
+JCT_BARSHA,Al Barsha Junction,Evening,20:00-24:00,90,P2,NS Left,11,3,2,7,18,0,SCOOT-adaptive
+JCT_BARSHA,Al Barsha Junction,Evening,20:00-24:00,90,P3,EW Through,24,3,2,12,38,0,SCOOT-adaptive
+JCT_BARSHA,Al Barsha Junction,Evening,20:00-24:00,90,P4,EW Left,11,3,2,7,18,0,SCOOT-adaptive
+JCT_KARAMA,Karama / Trade Centre Junction,Early Morning,00:00-06:00,70,P1,NS Through,17,3,2,8,27,0,SCOOT-adaptive
+JCT_KARAMA,Karama / Trade Centre Junction,Early Morning,00:00-06:00,70,P2,NS Left,8,3,2,7,13,0,SCOOT-adaptive
+JCT_KARAMA,Karama / Trade Centre Junction,Early Morning,00:00-06:00,70,P3,EW Through,17,3,2,8,27,0,SCOOT-adaptive
+JCT_KARAMA,Karama / Trade Centre Junction,Early Morning,00:00-06:00,70,P4,EW Left,8,3,2,7,13,0,SCOOT-adaptive
+JCT_KARAMA,Karama / Trade Centre Junction,AM Peak,06:00-10:00,140,P1,NS Through,41,3,2,20,66,12,SCOOT-adaptive
+JCT_KARAMA,Karama / Trade Centre Junction,AM Peak,06:00-10:00,140,P2,NS Left,19,3,2,10,30,12,SCOOT-adaptive
+JCT_KARAMA,Karama / Trade Centre Junction,AM Peak,06:00-10:00,140,P3,EW Through,41,3,2,20,66,12,SCOOT-adaptive
+JCT_KARAMA,Karama / Trade Centre Junction,AM Peak,06:00-10:00,140,P4,EW Left,19,3,2,10,30,12,SCOOT-adaptive
+JCT_KARAMA,Karama / Trade Centre Junction,Midday,10:00-16:00,100,P1,NS Through,27,3,2,14,43,8,SCOOT-adaptive
+JCT_KARAMA,Karama / Trade Centre Junction,Midday,10:00-16:00,100,P2,NS Left,13,3,2,7,21,8,SCOOT-adaptive
+JCT_KARAMA,Karama / Trade Centre Junction,Midday,10:00-16:00,100,P3,EW Through,27,3,2,14,43,8,SCOOT-adaptive
+JCT_KARAMA,Karama / Trade Centre Junction,Midday,10:00-16:00,100,P4,EW Left,13,3,2,7,21,8,SCOOT-adaptive
+JCT_KARAMA,Karama / Trade Centre Junction,PM Peak,16:00-20:00,150,P1,NS Through,44,3,2,22,70,18,SCOOT-adaptive
+JCT_KARAMA,Karama / Trade Centre Junction,PM Peak,16:00-20:00,150,P2,NS Left,21,3,2,10,34,18,SCOOT-adaptive
+JCT_KARAMA,Karama / Trade Centre Junction,PM Peak,16:00-20:00,150,P3,EW Through,44,3,2,22,70,18,SCOOT-adaptive
+JCT_KARAMA,Karama / Trade Centre Junction,PM Peak,16:00-20:00,150,P4,EW Left,21,3,2,10,34,18,SCOOT-adaptive
+JCT_KARAMA,Karama / Trade Centre Junction,Evening,20:00-24:00,90,P1,NS Through,24,3,2,12,38,0,SCOOT-adaptive
+JCT_KARAMA,Karama / Trade Centre Junction,Evening,20:00-24:00,90,P2,NS Left,11,3,2,7,18,0,SCOOT-adaptive
+JCT_KARAMA,Karama / Trade Centre Junction,Evening,20:00-24:00,90,P3,EW Through,24,3,2,12,38,0,SCOOT-adaptive
+JCT_KARAMA,Karama / Trade Centre Junction,Evening,20:00-24:00,90,P4,EW Left,11,3,2,7,18,0,SCOOT-adaptive
+JCT_DEIRA,Deira / Al Ittihad Junction,Early Morning,00:00-06:00,70,P1,NS Through,17,3,2,8,27,0,Fixed-time
+JCT_DEIRA,Deira / Al Ittihad Junction,Early Morning,00:00-06:00,70,P2,NS Left,8,3,2,7,13,0,Fixed-time
+JCT_DEIRA,Deira / Al Ittihad Junction,Early Morning,00:00-06:00,70,P3,EW Through,17,3,2,8,27,0,Fixed-time
+JCT_DEIRA,Deira / Al Ittihad Junction,Early Morning,00:00-06:00,70,P4,EW Left,8,3,2,7,13,0,Fixed-time
+JCT_DEIRA,Deira / Al Ittihad Junction,AM Peak,06:00-10:00,140,P1,NS Through,41,3,2,20,66,12,Fixed-time
+JCT_DEIRA,Deira / Al Ittihad Junction,AM Peak,06:00-10:00,140,P2,NS Left,19,3,2,10,30,12,Fixed-time
+JCT_DEIRA,Deira / Al Ittihad Junction,AM Peak,06:00-10:00,140,P3,EW Through,41,3,2,20,66,12,Fixed-time
+JCT_DEIRA,Deira / Al Ittihad Junction,AM Peak,06:00-10:00,140,P4,EW Left,19,3,2,10,30,12,Fixed-time
+JCT_DEIRA,Deira / Al Ittihad Junction,Midday,10:00-16:00,100,P1,NS Through,27,3,2,14,43,8,Fixed-time
+JCT_DEIRA,Deira / Al Ittihad Junction,Midday,10:00-16:00,100,P2,NS Left,13,3,2,7,21,8,Fixed-time
+JCT_DEIRA,Deira / Al Ittihad Junction,Midday,10:00-16:00,100,P3,EW Through,27,3,2,14,43,8,Fixed-time
+JCT_DEIRA,Deira / Al Ittihad Junction,Midday,10:00-16:00,100,P4,EW Left,13,3,2,7,21,8,Fixed-time
+JCT_DEIRA,Deira / Al Ittihad Junction,PM Peak,16:00-20:00,150,P1,NS Through,44,3,2,22,70,18,Fixed-time
+JCT_DEIRA,Deira / Al Ittihad Junction,PM Peak,16:00-20:00,150,P2,NS Left,21,3,2,10,34,18,Fixed-time
+JCT_DEIRA,Deira / Al Ittihad Junction,PM Peak,16:00-20:00,150,P3,EW Through,44,3,2,22,70,18,Fixed-time
+JCT_DEIRA,Deira / Al Ittihad Junction,PM Peak,16:00-20:00,150,P4,EW Left,21,3,2,10,34,18,Fixed-time
+JCT_DEIRA,Deira / Al Ittihad Junction,Evening,20:00-24:00,90,P1,NS Through,24,3,2,12,38,0,Fixed-time
+JCT_DEIRA,Deira / Al Ittihad Junction,Evening,20:00-24:00,90,P2,NS Left,11,3,2,7,18,0,Fixed-time
+JCT_DEIRA,Deira / Al Ittihad Junction,Evening,20:00-24:00,90,P3,EW Through,24,3,2,12,38,0,Fixed-time
+JCT_DEIRA,Deira / Al Ittihad Junction,Evening,20:00-24:00,90,P4,EW Left,11,3,2,7,18,0,Fixed-time

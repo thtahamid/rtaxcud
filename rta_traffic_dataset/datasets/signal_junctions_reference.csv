@@ -1,0 +1,11 @@
+junction_id,junction_name,area,latitude,longitude,num_approaches,peak_approach_demand_vph,control_type
+JCT_DEF,Defence Roundabout Signals,Trade Centre,25.2235,55.2845,4,1500,SCOOT-adaptive
+JCT_SAFA,Al Safa Junction,Al Safa,25.188,55.252,4,1200,SCOOT-adaptive
+JCT_WASL,Al Wasl / Al Hadiqa Junction,Al Wasl,25.196,55.244,4,1000,Fixed-time
+JCT_OUD,Oud Metha Junction,Oud Metha,25.235,55.312,4,1100,SCOOT-adaptive
+JCT_GARH,Al Garhoud Junction,Garhoud,25.241,55.346,4,1300,SCOOT-adaptive
+JCT_MAMZ,Al Mamzar Junction,Al Mamzar,25.294,55.35,4,1400,Fixed-time
+JCT_QUOZ,Al Quoz Junction,Al Quoz,25.143,55.233,3,900,Fixed-time
+JCT_BARSHA,Al Barsha Junction,Al Barsha,25.112,55.198,4,1150,SCOOT-adaptive
+JCT_KARAMA,Karama / Trade Centre Junction,Karama,25.247,55.304,4,1250,SCOOT-adaptive
+JCT_DEIRA,Deira / Al Ittihad Junction,Deira,25.271,55.334,4,1350,Fixed-time

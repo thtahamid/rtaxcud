@@ -1,0 +1,19 @@
+location_id,location_name,road_code,road_name,area,direction,num_lanes,free_flow_speed_kph,speed_limit_kph,capacity_vph,aadt_per_direction,profile_type,latitude,longitude,growth_key
+SZR_N1,Sheikh Zayed Rd @ 1st Interchange (Defence),E11,Sheikh Zayed Road,Trade Centre,NB (to Deira),6,105,100,12000,138000,cin,25.223,55.282,core
+SZR_S1,Sheikh Zayed Rd @ 1st Interchange (Defence),E11,Sheikh Zayed Road,Trade Centre,SB (to Abu Dhabi),6,105,100,12000,132000,cout,25.2228,55.2832,core
+SZR_N2,Sheikh Zayed Rd @ Financial Centre (DIFC),E11,Sheikh Zayed Road,DIFC,NB (to Deira),6,105,100,12000,134000,cin,25.211,55.279,core
+SZR_S2,Sheikh Zayed Rd @ Financial Centre (DIFC),E11,Sheikh Zayed Road,DIFC,SB (to Abu Dhabi),6,105,100,12000,130000,cout,25.2108,55.2802,core
+SZR_N4,Sheikh Zayed Rd @ 4th Interchange (Mall of Emirates),E11,Sheikh Zayed Road,Al Barsha,NB (to Deira),7,105,100,13500,142000,cin,25.118,55.2,core
+SZR_S4,Sheikh Zayed Rd @ 4th Interchange (Mall of Emirates),E11,Sheikh Zayed Road,Al Barsha,SB (to Abu Dhabi),7,105,100,13500,140000,cout,25.1178,55.2012,core
+EKR_N1,Al Khail Rd @ Business Bay,E44,Al Khail Road,Business Bay,NB (to Deira),5,100,100,10000,98000,cin,25.186,55.27,core
+EKR_S1,Al Khail Rd @ Al Quoz,E44,Al Khail Road,Al Quoz,SB (to Jebel Ali),5,100,100,10000,95000,cout,25.149,55.235,core
+MBZ_E1,Mohammed Bin Zayed Rd @ Dubai Investment Park,E311,Mohammed Bin Zayed Road,DIP,Both (sample EB),6,110,110,11000,86000,frgt,24.99,55.17,south
+EMR_E1,Emirates Rd @ Al Awir,E611,Emirates Road,Al Awir,Both (sample EB),5,110,110,9000,62000,frgt,25.17,55.44,core
+ITT_W1,Al Ittihad Rd @ Al Mamzar (Dubai-Sharjah border),D89,Al Ittihad Road,Al Mamzar,WB (to Dubai),5,80,80,7000,96000,cin,25.295,55.355,core
+ITT_E1,Al Ittihad Rd @ Al Qiyadah,D89,Al Ittihad Road,Al Qiyadah,EB (to Sharjah),5,80,80,7000,90000,cout,25.268,55.338,core
+AIR_W1,Airport Rd @ Al Garhoud,D89,Airport Road,Al Garhoud,WB (to city),4,80,80,6000,72000,cin,25.248,55.352,core
+GAR_N1,Al Garhoud Bridge,D75,Al Garhoud Bridge,Garhoud,NB (to Deira),5,80,80,7000,82000,mix,25.233,55.33,core
+MAK_N1,Al Maktoum Bridge,D75,Al Maktoum Bridge,Bur Dubai,NB (to Deira),4,60,60,6000,68000,mix,25.24,55.317,core
+BBC_S1,Business Bay Crossing,E11,Business Bay Crossing,Business Bay,SB (to Bur Dubai),5,80,80,8000,86000,mix,25.192,55.29,core
+JBR_X1,Jumeirah Beach Rd @ Jumeirah 1,D94,Jumeirah Beach Road,Jumeirah,Both (sample),3,60,60,4000,34000,leis,25.208,55.248,core
+DWC_X1,Expo Rd @ Dubai South / DWC,E77,Expo Road,Dubai South,Both (sample),4,100,100,6000,29000,mix,24.896,55.161,expo
