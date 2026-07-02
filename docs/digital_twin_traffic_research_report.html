@@ -1,0 +1,2010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dubai Network Traffic Digital Twin — Research Report</title>
+    <style>
+        :root {
+            --primary: #0a1628;
+            --secondary: #1a2d4a;
+            --accent: #00d4ff;
+            --accent2: #ff6b35;
+            --accent3: #7c3aed;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --card-bg: #1e293b;
+            --border: #334155;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--primary);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(124, 58, 237, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(255, 107, 53, 0.05) 0%, transparent 50%);
+        }
+        
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+        
+        /* Header */
+        header {
+            padding: 4rem 2rem;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(10, 22, 40, 0.95) 0%, var(--primary) 100%);
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+        
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+        
+        .header-badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent) 50%, var(--accent3) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .header-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(10, 22, 40, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--accent);
+            background: rgba(0, 212, 255, 0.1);
+        }
+        
+        /* Main content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        section {
+            margin-bottom: 4rem;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        h2 .icon {
+            font-size: 1.5rem;
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin: 2rem 0 1rem;
+        }
+        
+        h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+            margin: 1.5rem 0 0.75rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+        }
+        
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .card-highlight {
+            border-left: 4px solid var(--accent);
+        }
+        
+        .card-warning {
+            border-left: 4px solid var(--warning);
+        }
+        
+        .card-success {
+            border-left: 4px solid var(--success);
+        }
+        
+        /* Architecture Diagram */
+        .architecture-diagram {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+        }
+        
+        .diagram-container {
+            min-width: 900px;
+            position: relative;
+        }
+        
+        .diagram-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1.5rem 0;
+            gap: 1rem;
+        }
+        
+        .diagram-box {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            text-align: center;
+            min-width: 140px;
+            position: relative;
+        }
+        
+        .diagram-box.primary {
+            border-color: var(--accent);
+            background: rgba(0, 212, 255, 0.1);
+        }
+        
+        .diagram-box.secondary {
+            border-color: var(--accent3);
+            background: rgba(124, 58, 237, 0.1);
+        }
+        
+        .diagram-box.tertiary {
+            border-color: var(--accent2);
+            background: rgba(255, 107, 53, 0.1);
+        }
+        
+        .diagram-box.success {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+        
+        .diagram-box .label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.25rem;
+        }
+        
+        .diagram-box .value {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+        
+        .diagram-arrow {
+            color: var(--accent);
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .diagram-layer {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px dashed var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .diagram-layer-title {
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        /* Pipeline visualization */
+        .pipeline {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .pipeline-step {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem 1.5rem;
+            text-align: center;
+            min-width: 150px;
+            position: relative;
+        }
+        
+        .pipeline-step::after {
+            content: '→';
+            position: absolute;
+            right: -1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+        
+        .pipeline-step:last-child::after {
+            display: none;
+        }
+        
+        .pipeline-step .step-num {
+            font-size: 0.7rem;
+            color: var(--accent);
+            font-weight: 700;
+        }
+        
+        .pipeline-step .step-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 0.25rem;
+        }
+        
+        .pipeline-step .step-detail {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+        
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        
+        th {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--accent);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+        
+        tr:hover td {
+            background: rgba(0, 212, 255, 0.05);
+            color: var(--text);
+        }
+        
+        /* Code blocks */
+        .code-block {
+            background: #0d1117;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+        
+        .code-block .comment {
+            color: #6a737d;
+        }
+        
+        .code-block .keyword {
+            color: #ff7b72;
+        }
+        
+        .code-block .string {
+            color: #a5d6ff;
+        }
+        
+        .code-block .function {
+            color: #d2a8ff;
+        }
+        
+        .code-block-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .code-block-title {
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        .code-block-lang {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            background: rgba(255,255,255,0.1);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+        }
+        
+        /* Links */
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        a:hover {
+            color: #7dd3fc;
+            text-decoration: underline;
+        }
+        
+        /* Source list */
+        .source-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .source-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+        
+        .source-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .source-icon {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+        }
+        
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin: 0.2rem;
+        }
+        
+        .tag-open {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        
+        .tag-restricted {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+        
+        .tag-partial {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--warning);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+        
+        /* Map visualization */
+        .map-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .map-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .map-card:hover {
+            transform: scale(1.02);
+        }
+        
+        .map-card-header {
+            padding: 1rem;
+            background: rgba(0, 212, 255, 0.05);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .map-card-title {
+            font-weight: 600;
+            color: var(--text);
+        }
+        
+        .map-card-body {
+            padding: 1rem;
+        }
+        
+        .map-card-body img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            background: var(--secondary);
+        }
+        
+        .map-card-footer {
+            padding: 0.75rem 1rem;
+            background: rgba(0,0,0,0.2);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        
+        /* Phase timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent), var(--accent3), var(--accent2));
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 1.5rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 2px solid var(--primary);
+            margin-left: -5px;
+        }
+        
+        .timeline-phase {
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .timeline-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0.25rem 0;
+        }
+        
+        .timeline-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .header-stats { gap: 1.5rem; }
+            .pipeline-step::after { display: none; }
+            .pipeline { flex-direction: column; }
+            nav { padding: 0.5rem; }
+            nav a { font-size: 0.8rem; padding: 0.4rem 0.6rem; }
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        
+        /* Highlight box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .highlight-box h4 {
+            color: var(--accent);
+            margin-top: 0;
+        }
+        
+        /* Image placeholders with gradient */
+        .img-placeholder {
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .img-osm { background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%); }
+        .img-cesium { background: linear-gradient(135deg, #1a202c 0%, #171923 100%); }
+        .img-sumo { background: linear-gradient(135deg, #1a2d4a 0%, #0f172a 100%); }
+        .img-carla { background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); }
+        .img-unity { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
+        .img-dubai { background: linear-gradient(135deg, #0c4a6e 0%, #075985 100%); }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="grid-overlay"></div>
+    
+    <header>
+        <div class="header-badge">Research Report — 2025</div>
+        <h1>Dubai Network Traffic Digital Twin</h1>
+        <p class="subtitle">A comprehensive research blueprint for building a real-time digital twin of Dubai's traffic network — from 3D map data to congestion prediction and proactive intervention.</p>
+        
+        <div class="header-stats">
+            <div class="stat">
+                <div class="stat-value">6</div>
+                <div class="stat-label">Data Sources</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">12+</div>
+                <div class="stat-label">Tools & Frameworks</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">4</div>
+                <div class="stat-label">Implementation Phases</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">620</div>
+                <div class="stat-label">V2X Intersections</div>
+            </div>
+        </div>
+    </header>
+    
+    <nav>
+        <a href="#overview">Overview</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#map-data">Map Data</a>
+        <a href="#simulation">Simulation</a>
+        <a href="#dubai-data">Dubai Data</a>
+        <a href="#implementation">Implementation</a>
+        <a href="#sources">Sources</a>
+    </nav>
+    
+    <main>
+        <!-- Overview Section -->
+        <section id="overview">
+            <h2><span class="icon">🎯</span> Executive Summary</h2>
+            
+            <div class="card card-highlight">
+                <h4>🚀 Key Finding: Dubai is Already Building This</h4>
+                <p>Dubai Municipality launched <strong>"Dubai Live"</strong> in October 2025 — an AI-powered digital twin command hub. RTA (Roads and Transport Authority) deployed AI traffic signal control across <strong>620 intersections</strong> with V2X connectivity, targeting 100% main road coverage by 2026. This means the infrastructure exists — the opportunity is to build an open-source layer on top of it.</p>
+            </div>
+            
+            <p>This report provides a complete blueprint for building a <strong>network traffic digital twin</strong> of Dubai — a real-time virtual replica of the city's traffic network that can simulate congestion, predict bottlenecks, and proactively intervene via signal control, rerouting, and driver advisories.</p>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <h4>🗺️ 3D Map Foundation</h4>
+                    <p>OpenStreetMap + Cesium OSM Buildings provide free 3D city models. GeoDubai offers official Dubai 3D data. OSM2World converts to glTF/CityGML for simulation engines.</p>
+                </div>
+                <div class="card">
+                    <h4>🚦 Real-Time Simulation</h4>
+                    <p>SUMO (Simulation of Urban Mobility) with TraCI Python API enables real-time traffic simulation. CityFlow provides 20x faster RL-ready simulation for signal control.</p>
+                </div>
+                <div class="card">
+                    <h4>📡 Live Data Integration</h4>
+                    <p>HERE Traffic API, RTA GTFS feeds, IoT sensors via MQTT/Kafka. Kalman filters fuse noisy sensor data into clean state estimates for the twin.</p>
+                </div>
+                <div class="card">
+                    <h4>🧠 Proactive Intervention</h4>
+                    <p>Reinforcement learning (PressLight, CoLight, Traffic-R1) for adaptive signal control. LLM-based reasoning for zero-shot generalization to unseen congestion patterns.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Architecture Section -->
+        <section id="architecture">
+            <h2><span class="icon">🏗️</span> System Architecture</h2>
+            
+            <p>The digital twin follows a <strong>physical-virtual synchronization</strong> pattern: real-world sensors feed into a state estimation layer that keeps the simulation in sync with reality, while the simulation outputs predictions and control signals back to the physical world.</p>
+            
+            <div class="architecture-diagram">
+                <div class="diagram-container">
+                    <!-- Layer 1: Physical World -->
+                    <div class="diagram-layer">
+                        <div class="diagram-layer-title">Physical World — Dubai</div>
+                        <div class="diagram-row">
+                            <div class="diagram-box primary">
+                                <div class="label">V2X RSUs</div>
+                                <div class="value">620 Intersections</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-box primary">
+                                <div class="label">Traffic Cameras</div>
+                                <div class="value">AI Vision</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-box primary">
+                                <div class="label">GPS Probes</div>
+                                <div class="value">Fleet Data</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-box primary">
+                                <div class="label">IoT Sensors</div>
+                                <div class="value">Loop Detectors</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Arrow down -->
+                    <div style="text-align: center; color: var(--accent); font-size: 1.5rem; margin: 0.5rem 0;">↓ ↓ ↓ ↓</div>
+                    
+                    <!-- Layer 2: Data Ingestion -->
+                    <div class="diagram-layer">
+                        <div class="diagram-layer-title">Data Ingestion & Streaming</div>
+                        <div class="diagram-row">
+                            <div class="diagram-box secondary">
+                                <div class="label">Apache Kafka</div>
+                                <div class="value">Event Streaming</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-box secondary">
+                                <div class="label">MQTT Broker</div>
+                                <div class="value">IoT Telemetry</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-box secondary">
+                                <div class="label">HERE API</div>
+                                <div class="value">Traffic Flow</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-box secondary">
+                                <div class="label">GTFS-RT</div>
+                                <div class="value">Transit Feed</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Arrow down -->
+                    <div style="text-align: center; color: var(--accent); font-size: 1.5rem; margin: 0.5rem 0;">↓ ↓ ↓ ↓</div>
+                    
+                    <!-- Layer 3: Digital Twin Core -->
+                    <div class="diagram-layer">
+                        <div class="diagram-layer-title">Digital Twin Core</div>
+                        <div class="diagram-row">
+                            <div class="diagram-box tertiary">
+                                <div class="label">Kalman Filter</div>
+                                <div class="value">State Estimation</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-box tertiary" style="min-width: 200px;">
+                                <div class="label">SUMO / CityFlow</div>
+                                <div class="value">Microscopic Simulation</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-box tertiary">
+                                <div class="label">PostgreSQL</div>
+                                <div class="value">State Store</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Arrow down -->
+                    <div style="text-align: center; color: var(--accent); font-size: 1.5rem; margin: 0.5rem 0;">↓ ↓ ↓ ↓</div>
+                    
+                    <!-- Layer 4: Intelligence -->
+                    <div class="diagram-layer">
+                        <div class="diagram-layer-title">Intelligence & Prediction</div>
+                        <div class="diagram-row">
+                            <div class="diagram-box success">
+                                <div class="label">ST-GNN</div>
+                                <div class="value">Congestion Prediction</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-box success">
+                                <div class="label">RL Agent</div>
+                                <div class="value">Signal Control</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-box success">
+                                <div class="label">What-If Engine</div>
+                                <div class="value">Scenario Analysis</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Arrow down -->
+                    <div style="text-align: center; color: var(--accent); font-size: 1.5rem; margin: 0.5rem 0;">↓ ↓ ↓ ↓</div>
+                    
+                    <!-- Layer 5: Visualization -->
+                    <div class="diagram-layer">
+                        <div class="diagram-layer-title">Visualization & Feedback</div>
+                        <div class="diagram-row">
+                            <div class="diagram-box" style="border-color: var(--accent);">
+                                <div class="label">CesiumJS</div>
+                                <div class="value">3D Globe</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-box" style="border-color: var(--accent);">
+                                <div class="label">Grafana</div>
+                                <div class="value">Dashboards</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-box" style="border-color: var(--accent);">
+                                <div class="label">RTA Feedback</div>
+                                <div class="value">Signal Commands</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="highlight-box">
+                <h4>💡 Synchronization Pattern (from V2X Digital Twin Paper)</h4>
+                <p>The key insight from the Madison, Wisconsin deployment (arxiv 2410.00356): use <strong>temporal synchronization</strong> (align timestamps across data sources), <strong>spatial matching</strong> (map GPS to road segments), and a <strong>feedback loop</strong> (twin sends signal timing back to physical world via JSON commands). Edge servers process data within 500ms latency.</p>
+            </div>
+        </section>
+        
+        <!-- Map Data Section -->
+        <section id="map-data">
+            <h2><span class="icon">🗺️</span> Map Data & 3D City Models</h2>
+            
+            <h3>Data Sources for Dubai's 3D Map</h3>
+            
+            <div class="map-showcase">
+                <div class="map-card">
+                    <div class="map-card-header">
+                        <div class="map-card-title">OpenStreetMap (OSM)</div>
+                    </div>
+                    <div class="map-card-body">
+                        <div class="img-placeholder img-osm">🌍</div>
+                        <p>Free, global coverage including Dubai. Contains building footprints, road networks, lane counts, speed limits. Extract via Overpass API or Pyrosm.</p>
+                    </div>
+                    <div class="map-card-footer">
+                        <span class="tag tag-open">OPEN</span>
+                        <a href="https://overpass-turbo.eu/">overpass-turbo.eu</a>
+                    </div>
+                </div>
+                
+                <div class="map-card">
+                    <div class="map-card-header">
+                        <div class="map-card-title">Cesium OSM Buildings</div>
+                    </div>
+                    <div class="map-card-body">
+                        <div class="img-placeholder img-cesium">🏙️</div>
+                        <p>350M+ buildings globally as 3D Tiles. Free Cesium ion account provides access. Includes Dubai with building heights. Streams directly to web viewers.</p>
+                    </div>
+                    <div class="map-card-footer">
+                        <span class="tag tag-open">FREE TIER</span>
+                        <a href="https://cesium.com/platform/cesium-ion/content/cesium-osm-buildings/">cesium.com</a>
+                    </div>
+                </div>
+                
+                <div class="map-card">
+                    <div class="map-card-header">
+                        <div class="map-card-title">GeoDubai (Official)</div>
+                    </div>
+                    <div class="map-card-body">
+                        <div class="img-placeholder img-dubai">🇦🇪</div>
+                        <p>Dubai Municipality's official geospatial platform. Contains 3D city models, aerial imagery, property boundaries, infrastructure data. Registration required.</p>
+                    </div>
+                    <div class="map-card-footer">
+                        <span class="tag tag-partial">REGISTRATION</span>
+                        <a href="https://geodubai.dm.gov.ae/">geodubai.dm.gov.ae</a>
+                    </div>
+                </div>
+                
+                <div class="map-card">
+                    <div class="map-card-header">
+                        <div class="map-card-title">Copernicus DEM GLO-30</div>
+                    </div>
+                    <div class="map-card-body">
+                        <div class="img-placeholder img-osm">⛰️</div>
+                        <p>30m resolution global elevation data. Free registration. Provides terrain mesh for Dubai (mostly flat but needed for wadis and coastal areas).</p>
+                    </div>
+                    <div class="map-card-footer">
+                        <span class="tag tag-open">FREE</span>
+                        <a href="https://dataspace.copernicus.eu/">dataspace.copernicus.eu</a>
+                    </div>
+                </div>
+                
+                <div class="map-card">
+                    <div class="map-card-header">
+                        <div class="map-card-title">Google Maps 3D Tiles</div>
+                    </div>
+                    <div class="map-card-body">
+                        <div class="img-placeholder img-cesium">🛰️</div>
+                        <p>Photorealistic 3D buildings, trees, terrain. Highest quality available. Pay-per-request pricing. Best for final visualization layer.</p>
+                    </div>
+                    <div class="map-card-footer">
+                        <span class="tag tag-restricted">PAID</span>
+                        <a href="https://developers.google.com/maps/documentation/tile/3d-tiles">Google Dev</a>
+                    </div>
+                </div>
+                
+                <div class="map-card">
+                    <div class="map-card-header">
+                        <div class="map-card-title">Dubai Pulse Open Data</div>
+                    </div>
+                    <div class="map-card-body">
+                        <div class="img-placeholder img-dubai">📊</div>
+                        <p>Central data catalog for Dubai. Contains RTA major roads, public transport trips, traffic datasets. Direct CSV/GeoJSON download.</p>
+                    </div>
+                    <div class="map-card-footer">
+                        <span class="tag tag-open">OPEN</span>
+                        <a href="https://dubaipulse.gov.ae">dubaipulse.gov.ae</a>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>3D Model Conversion Pipeline</h3>
+            
+            <div class="pipeline">
+                <div class="pipeline-step">
+                    <div class="step-num">STEP 1</div>
+                    <div class="step-name">Extract OSM Data</div>
+                    <div class="step-detail">Overpass API / Pyrosm</div>
+                </div>
+                <div class="pipeline-step">
+                    <div class="step-num">STEP 2</div>
+                    <div class="step-name">Convert to 3D</div>
+                    <div class="step-detail">OSM2World / BlenderGIS</div>
+                </div>
+                <div class="pipeline-step">
+                    <div class="step-num">STEP 3</div>
+                    <div class="step-name">Format Output</div>
+                    <div class="step-detail">glTF / CityGML / OBJ</div>
+                </div>
+                <div class="pipeline-step">
+                    <div class="step-num">STEP 4</div>
+                    <div class="step-name">Stream & Visualize</div>
+                    <div class="step-detail">Cesium 3D Tiles</div>
+                </div>
+                <div class="pipeline-step">
+                    <div class="step-num">STEP 5</div>
+                    <div class="step-name">Simulate</div>
+                    <div class="step-detail">SUMO / CityFlow</div>
+                </div>
+            </div>
+            
+            <div class="code-block">
+                <div class="code-block-header">
+                    <span class="code-block-title">Extract Dubai Buildings from OSM</span>
+                    <span class="code-block-lang">Python</span>
+                </div>
+                <span class="comment"># Query Overpass API for Dubai bounding box</span>
+                <span class="keyword">import</span> requests
+                
+                overpass_url = <span class="string">"https://overpass-api.de/api/interpreter"</span>
+                <span class="comment"># Dubai bbox: 24.7,55.0 to 25.4,55.6</span>
+                query = <span class="string">"""
+                [out:json][timeout:60];
+                (
+                  way["building"](24.7,55.0,25.4,55.6);
+                  relation["building"](24.7,55.0,25.4,55.6);
+                );
+                out body;
+                >;
+                out skel qt;
+                """</span>
+                
+                response = requests.post(overpass_url, data={<span class="string">"data"</span>: query})
+                data = response.json()
+                <span class="function">print</span>(<span class="string">f"Found {len(data['elements'])} elements"</span>)
+            </div>
+            
+            <div class="code-block">
+                <div class="code-block-header">
+                    <span class="code-block-title">CesiumJS — Load Dubai with OSM Buildings</span>
+                    <span class="code-block-lang">JavaScript</span>
+                </div>
+                <span class="keyword">const</span> viewer = <span class="keyword">new</span> Cesium.Viewer(<span class="string">"cesiumContainer"</span>, {
+                    terrainProvider: Cesium.createWorldTerrain()
+                });
+                
+                <span class="comment">// Add OSM Buildings 3D Tileset (free asset)</span>
+                <span class="keyword">const</span> tileset = viewer.scene.primitives.add(
+                    <span class="keyword">new</span> Cesium.Cesium3DTileset({
+                        url: Cesium.IonResource.fromAssetId(<span class="string">96188</span>)
+                    })
+                );
+                
+                <span class="comment">// Fly to Dubai</span>
+                viewer.camera.flyTo({
+                    destination: Cesium.Cartesian3.fromDegrees(<span class="string">55.2708, 25.2048, 5000</span>)
+                });
+            </div>
+            
+            <h3>Conversion Tools Comparison</h3>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tool</th>
+                            <th>Input</th>
+                            <th>Output</th>
+                            <th>License</th>
+                            <th>Best For</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>OSM2World</strong></td>
+                            <td>OSM (.osm, .pbf)</td>
+                            <td>OBJ, glTF, Collada</td>
+                            <td>LGPL</td>
+                            <td>Full 3D building gen</td>
+                        </tr>
+                        <tr>
+                            <td><strong>BlenderGIS</strong></td>
+                            <td>OSM, SRTM, DEM</td>
+                            <td>glTF, FBX, OBJ</td>
+                            <td>GPL</td>
+                            <td>Manual refinement</td>
+                        </tr>
+                        <tr>
+                            <td><strong>osm2city</strong></td>
+                            <td>OSM</td>
+                            <td>FlightGear scen</td>
+                            <td>GPL</td>
+                            <td>Aviation sim</td>
+                        </tr>
+                        <tr>
+                            <td><strong>mago-3d-tiler</strong></td>
+                            <td>CityGML, 3DCityDB</td>
+                            <td>3D Tiles</td>
+                            <td>Apache 2.0</td>
+                            <td>Cesium streaming</td>
+                        </tr>
+                        <tr>
+                            <td><strong>citygml-tools</strong></td>
+                            <td>CityGML</td>
+                            <td>CityJSON</td>
+                            <td>Apache 2.0</td>
+                            <td>Lightweight exchange</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <!-- Simulation Section -->
+        <section id="simulation">
+            <h2><span class="icon">🚦</span> Traffic Simulation Engines</h2>
+            
+            <h3>SUMO — Primary Simulation Engine</h3>
+            
+            <div class="card card-success">
+                <h4>Why SUMO for Dubai?</h4>
+                <p>SUMO (Simulation of Urban Mobility) is the best fit because: (1) direct OSM import via netconvert, (2) real-time TraCI Python API for live data injection, (3) microscopic simulation models individual vehicles, (4) traffic signal control integration, (5) proven in Dubai-scale deployments.</p>
+            </div>
+            
+            <div class="code-block">
+                <div class="code-block-header">
+                    <span class="code-block-title">SUMO Dubai Pipeline</span>
+                    <span class="code-block-lang">Bash</span>
+                </div>
+                <span class="comment"># Download Dubai network from OSM</span>
+                osm_download --region <span class="string">"Dubai, UAE"</span> --output dubai.osm.xml
+                
+                <span class="comment"># Convert to SUMO network</span>
+                netconvert --osm-files dubai.osm.xml -o dubai.net.xml
+                
+                <span class="comment"># Generate traffic demand</span>
+                randomTrips -n dubai.net.xml -r dubai.rou.xml -e 3600
+                
+                <span class="comment"># Run simulation with TraCI</span>
+                sumo -n dubai.net.xml -r dubai.rou.xml --remote-port 8813
+            </div>
+            
+            <div class="code-block">
+                <div class="code-block-header">
+                    <span class="code-block-title">SUMO TraCI — Real-Time Digital Twin Sync</span>
+                    <span class="code-block-lang">Python</span>
+                </div>
+                <span class="keyword">import</span> traci
+                <span class="keyword">from</span> kafka <span class="keyword">import</span> KafkaConsumer
+                <span class="keyword">import</span> json
+                
+                <span class="comment"># Connect to running SUMO instance</span>
+                traci.start([<span class="string">"sumo"</span>, <span class="string">"-c"</span>, <span class="string">"dubai.sumocfg"</span>])
+                
+                <span class="comment"># Kafka consumer for real-time traffic data</span>
+                consumer = KafkaConsumer(<span class="string">'dubai-traffic'</span>)
+                
+                <span class="keyword">for</span> msg <span class="keyword">in</span> consumer:
+                    traffic_data = json.loads(msg.value)
+                    
+                    <span class="comment"># Inject real-world counts into SUMO induction loops</span>
+                    <span class="keyword">for</span> segment <span class="keyword">in</span> traffic_data[<span class="string">'segments'</span>]:
+                        loop_id = segment[<span class="string">'loop_id'</span>]
+                        traci.inductionloop.setVehicleData(
+                            loop_id,
+                            real_count=segment[<span class="string">'vehicle_count'</span>],
+                            real_speed=segment[<span class="string">'speed'</span>]
+                        )
+                    
+                    <span class="comment"># Advance simulation one step</span>
+                    traci.simulationStep()
+                    
+                    <span class="comment"># Read current state for digital twin</span>
+                    <span class="keyword">for</span> veh_id <span class="keyword">in</span> traci.vehicle.getIDList():
+                        pos = traci.vehicle.getPosition(veh_id)
+                        speed = traci.vehicle.getSpeed(veh_id)
+                        <span class="comment"># Publish to visualization layer...</span>
+                
+                traci.close()
+            </div>
+            
+            <h3>CityFlow — RL-Ready Alternative</h3>
+            
+            <div class="card card-highlight">
+                <h4>When to Use CityFlow</h4>
+                <p>CityFlow is <strong>20x faster than SUMO</strong> and purpose-built for multi-agent RL traffic signal control. Use it when training RL agents (PressLight, CoLight, Traffic-R1). It uses a thread-safe C++ engine with Python bindings via pybind11. Tested on Hangzhou with 100+ intersections.</p>
+            </div>
+            
+            <div class="code-block">
+                <div class="code-block-header">
+                    <span class="code-block-title">CityFlow — RL Signal Control Loop</span>
+                    <span class="code-block-lang">Python</span>
+                </div>
+                <span class="keyword">import</span> cityflow
+                <span class="keyword">import</span> numpy <span class="keyword">as</span> np
+                
+                eng = cityflow.Engine(config_file=<span class="string">"dubai_4x4.json"</span>, thread_num=<span class="string">1</span>)
+                
+                <span class="keyword">for</span> step <span class="keyword">in</span> range(<span class="string">3600</span>):
+                    <span class="comment"># Get state: queue lengths per lane</span>
+                    lane_waits = eng.get_lane_waiting_vehicle_count()
+                    current_phase = eng.get_traffic_light_state(inter_id)
+                    
+                    <span class="comment"># RL agent selects action</span>
+                    action = agent.select_action(lane_waits, current_phase)
+                    eng.set_traffic_light(inter_id, action)
+                    
+                    <span class="comment"># Reward: negative total waiting</span>
+                    reward = -sum(lane_waits.values())
+                    
+                    eng.next_step()
+            </div>
+            
+            <h3>Simulation Engine Comparison</h3>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Engine</th>
+                            <th>Type</th>
+                            <th>Speed</th>
+                            <th>Real-Time</th>
+                            <th>RL Support</th>
+                            <th>OSM Import</th>
+                            <th>License</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>SUMO</strong></td>
+                            <td>Microscopic</td>
+                            <td>~1k veh/s</td>
+                            <td>✅ TraCI</td>
+                            <td>✅ sumo-rl</td>
+                            <td>✅ Direct</td>
+                            <td>EPL 2.0</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CityFlow</strong></td>
+                            <td>Microscopic</td>
+                            <td>~20k veh/s</td>
+                            <td>⚠️ Step</td>
+                            <td>✅ Native</td>
+                            <td>❌ Manual</td>
+                            <td>MIT</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CARLA</strong></td>
+                            <td>3D Sim</td>
+                            <td>~100 FPS</td>
+                            <td>✅ Python</td>
+                            <td>✅</td>
+                            <td>❌</td>
+                            <td>MIT</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MATSim</strong></td>
+                            <td>Agent-Based</td>
+                            <td>Batch</td>
+                            <td>❌</td>
+                            <td>⚠️</td>
+                            <td>✅</td>
+                            <td>GPL</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ns-3</strong></td>
+                            <td>Network</td>
+                            <td>Real-time</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>N/A</td>
+                            <td>GPLv2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>GPUDrive</strong></td>
+                            <td>Multi-agent</td>
+                            <td><strong>1M steps/s</strong></td>
+                            <td>❌</td>
+                            <td>✅</td>
+                            <td>❌</td>
+                            <td>Apache 2.0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Real-Time Data Integration</h3>
+            
+            <div class="architecture-diagram">
+                <div class="diagram-container">
+                    <div class="diagram-layer">
+                        <div class="diagram-layer-title">Data Flow Architecture</div>
+                        <div class="diagram-row">
+                            <div class="diagram-box primary">
+                                <div class="label">HERE Traffic v7</div>
+                                <div class="value">Speed/Jam Factor</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-box secondary">
+                                <div class="label">Kafka Producer</div>
+                                <div class="value">dubai-traffic topic</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-box tertiary">
+                                <div class="label">State Estimator</div>
+                                <div class="value">Kalman Filter</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-box success">
+                                <div class="label">SUMO TraCI</div>
+                                <div class="value">Live Injection</div>
+                            </div>
+                        </div>
+                        <div class="diagram-row" style="margin-top: 1rem;">
+                            <div class="diagram-box primary">
+                                <div class="label">IoT MQTT</div>
+                                <div class="value">Loop Detectors</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-box secondary">
+                                <div class="label">MQTT Bridge</div>
+                                <div class="value">Kafka Connect</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-box tertiary">
+                                <div class="label">Redis Cache</div>
+                                <div class="value">Latest State</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-box success">
+                                <div class="label">Visualization</div>
+                                <div class="value">CesiumJS</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>Reinforcement Learning for Signal Control</h3>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <h4>PressLight (KDD 2019)</h4>
+                    <p>Max-pressure control: reward = upstream queue − downstream queue. Theoretically optimal for network-level throughput. Simple, effective baseline.</p>
+                </div>
+                <div class="card">
+                    <h4>CoLight (CIKM 2019)</h4>
+                    <p>Attention-based coordination between neighboring intersections. Captures spatial dependencies. 15% better than PressLight on large grids.</p>
+                </div>
+                <div class="card">
+                    <h4>Traffic-R1 (2025)</h4>
+                    <p>LLM-based (Qwen2.5-3B) with RL fine-tuning. Zero-shot generalization to unseen cities. Deployed in Tier-1 Chinese city, 55k+ drivers/day, 5% queue reduction.</p>
+                </div>
+                <div class="card">
+                    <h4>LibSignal</h4>
+                    <p>Unified library for CityFlow + SUMO RL training. Provides standardized environments, baselines, and evaluation. Best starting point for experiments.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Dubai Data Section -->
+        <section id="dubai-data">
+            <h2><span class="icon">🇦🇪</span> Dubai-Specific Data Sources</h2>
+            
+            <div class="card card-highlight">
+                <h4>🚨 Critical Update: Dubai Live Platform (Oct 2025)</h4>
+                <p>Dubai Municipality launched <strong>"Dubai Live"</strong> at GITEX Global 2025 — an AI-powered command hub that digitally governs the city in real-time. This is the official digital twin platform. Partnership with Dubai Land Department (DLD) signed Oct 14, 2025. This is your primary contact point for data access.</p>
+            </div>
+            
+            <h3>Available Data Portals</h3>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Portal</th>
+                            <th>URL</th>
+                            <th>Content</th>
+                            <th>Access</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Dubai Pulse</strong></td>
+                            <td><a href="https://dubaipulse.gov.ae">dubaipulse.gov.ae</a></td>
+                            <td>RTA roads, transport trips, weather, utilities</td>
+                            <td><span class="tag tag-open">OPEN</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>GeoDubai</strong></td>
+                            <td><a href="https://geodubai.dm.gov.ae">geodubai.dm.gov.ae</a></td>
+                            <td>3D city models, GIS, aerial imagery</td>
+                            <td><span class="tag tag-partial">REGISTRATION</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>RTA ArcGIS Hub</strong></td>
+                            <td><a href="https://gis.rtadubai.opendata.arcgis.com/">gis.rtadubai.opendata.arcgis.com</a></td>
+                            <td>Roads, transport networks, traffic data</td>
+                            <td><span class="tag tag-open">OPEN</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dubai Municipality</strong></td>
+                            <td><a href="https://www.dm.gov.ae/open-data2/">dm.gov.ae/open-data2</a></td>
+                            <td>Building permits, land use, infrastructure</td>
+                            <td><span class="tag tag-open">OPEN</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bayanat (UAE)</strong></td>
+                            <td><a href="https://bayanat.ae">bayanat.ae</a></td>
+                            <td>Federal open data portal</td>
+                            <td><span class="tag tag-open">OPEN</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>NCM Weather API</strong></td>
+                            <td><a href="https://api.ncm.ae/documentation/">api.ncm.ae</a></td>
+                            <td>Current weather, forecasts, alerts</td>
+                            <td><span class="tag tag-open">API KEY</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>RTA Traffic Infrastructure (2025)</h3>
+            
+            <div class="card-grid">
+                <div class="card card-success">
+                    <h4>✅ Deployed</h4>
+                    <ul style="margin-left: 1.5rem; color: var(--text-muted);">
+                        <li>620 intersections with V2X connectivity</li>
+                        <li>AI-powered traffic cameras (computer vision)</li>
+                        <li>Smart adaptive signal control</li>
+                        <li>GTFS transit feed (bus, metro, tram)</li>
+                        <li>Real-time traffic monitoring platform</li>
+                    </ul>
+                </div>
+                <div class="card card-warning">
+                    <h4>⚠️ Restricted</h4>
+                    <ul style="margin-left: 1.5rem; color: var(--text-muted);">
+                        <li>Real-time sensor feeds (partnership required)</li>
+                        <li>Full 3D city model (license from GeoDubai)</li>
+                        <li>V2X vehicle data (emerging, restricted)</li>
+                        <li>MBZ-SAT high-res imagery (commercial)</li>
+                        <li>Live camera feeds (RTA/Police controlled)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>GTFS Transit Data</h3>
+            
+            <div class="code-block">
+                <div class="code-block-header">
+                    <span class="code-block-title">Access Dubai RTA GTFS Feed</span>
+                    <span class="code-block-lang">Python</span>
+                </div>
+                <span class="keyword">import</span> requests
+                
+                <span class="comment"># RTA GTFS feed URL (via Transitland)</span>
+                gtfs_url = <span class="string">"https://transit.land/feeds/f-dubai~rta"</span>
+                
+                <span class="comment"># Or direct download</span>
+                gtfs_zip = <span class="string">"https://busmaps.com/en/ae/public_transport/feed/dubai-rta-gtfs.zip"</span>
+                
+                response = requests.get(gtfs_zip)
+                <span class="keyword">with</span> open(<span class="string">"dubai_gtfs.zip"</span>, <span class="string">"wb"</span>) <span class="keyword">as</span> f:
+                    f.write(response.content)
+                
+                <span class="function">print</span>(<span class="string">"Dubai GTFS feed downloaded"</span>)
+                <span class="comment"># Contains: routes, stops, trips, schedules for bus/metro/tram</span>
+            </div>
+            
+            <h3>Weather Data Integration</h3>
+            
+            <p>Dubai's traffic is heavily affected by weather — rare but impactful rain events cause massive sandstorms and flooding. The National Center of Meteorology (NCM) provides a free API:</p>
+            
+            <div class="code-block">
+                <div class="code-block-header">
+                    <span class="code-block-title">NCM Weather API — Dubai</span>
+                    <span class="code-block-lang">Python</span>
+                </div>
+                <span class="keyword">import</span> requests
+                
+                ncm_url = <span class="string">"https://api.ncm.ae/v2/weather/current"</span>
+                params = {
+                    <span class="string">"lat"</span>: <span class="string">25.2048</span>,
+                    <span class="string">"lon"</span>: <span class="string">55.2708</span>,
+                    <span class="string">"apikey"</span>: <span class="string">"YOUR_KEY"</span>
+                }
+                
+                response = requests.get(ncm_url, params=params)
+                weather = response.json()
+                <span class="comment"># Correlate: rain → 40% traffic speed reduction on Sheikh Zayed Rd</span>
+            </div>
+        </section>
+        
+        <!-- Implementation Section -->
+        <section id="implementation">
+            <h2><span class="icon">🛠️</span> Implementation Roadmap</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-phase">Phase 1 — Foundation</div>
+                    <div class="timeline-title">Weeks 1-3: Data Acquisition & Basic Simulation</div>
+                    <div class="timeline-desc">
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                            <li>Download Dubai OSM data via Overpass API</li>
+                            <li>Convert to SUMO network with netconvert</li>
+                            <li>Set up TraCI Python client</li>
+                            <li>Run basic simulation with random demand</li>
+                            <li>Visualize in SUMO-GUI</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-phase">Phase 2 — Digital Twin Core</div>
+                    <div class="timeline-title">Weeks 4-6: Real-Time Integration & 3D Viz</div>
+                    <div class="timeline-desc">
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                            <li>Set up Kafka for data streaming</li>
+                            <li>Connect HERE Traffic API for live flow data</li>
+                            <li>Implement Kalman filter state estimation</li>
+                            <li>Build CesiumJS 3D visualization with OSM Buildings</li>
+                            <li>Create Grafana dashboards for monitoring</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-phase">Phase 3 — Intelligence</div>
+                    <div class="timeline-title">Weeks 7-9: Prediction & RL Control</div>
+                    <div class="timeline-desc">
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                            <li>Train ST-GNN for congestion prediction (TESTAM architecture)</li>
+                            <li>Implement PressLight baseline for signal control</li>
+                            <li>Upgrade to CoLight for multi-intersection coordination</li>
+                            <li>Test what-if scenario engine</li>
+                            <li>Validate against historical traffic patterns</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-phase">Phase 4 — Scale & Deploy</div>
+                    <div class="timeline-title">Weeks 10-12: Production & RTA Integration</div>
+                    <div class="timeline-desc">
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                            <li>Migrate to GPUDrive for city-scale RL training</li>
+                            <li>Deploy Traffic-R1 LLM for zero-shot generalization</li>
+                            <li>Build feedback loop to RTA signal control</li>
+                            <li>Performance testing at 620-intersection scale</li>
+                            <li>Documentation and open-source release</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>Key Hyperparameters from Literature</h3>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Parameter</th>
+                            <th>Value</th>
+                            <th>Source</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>RL Training</td>
+                            <td>Learning Rate</td>
+                            <td>3e-4</td>
+                            <td>Traffic-R1</td>
+                        </tr>
+                        <tr>
+                            <td>RL Training</td>
+                            <td>Batch Size</td>
+                            <td>64</td>
+                            <td>Traffic-R1</td>
+                        </tr>
+                        <tr>
+                            <td>RL Training</td>
+                            <td>Gamma (discount)</td>
+                            <td>0.99</td>
+                            <td>Traffic-R1</td>
+                        </tr>
+                        <tr>
+                            <td>ST-GNN</td>
+                            <td>Hidden Dim</td>
+                            <td>32</td>
+                            <td>TESTAM</td>
+                        </tr>
+                        <tr>
+                            <td>ST-GNN</td>
+                            <td>Layers</td>
+                            <td>3</td>
+                            <td>TESTAM</td>
+                        </tr>
+                        <tr>
+                            <td>ST-GNN</td>
+                            <td>Attention Heads</td>
+                            <td>4</td>
+                            <td>TESTAM</td>
+                        </tr>
+                        <tr>
+                            <td>SUMO</td>
+                            <td>Step Length</td>
+                            <td>0.1s</td>
+                            <td>Best Practice</td>
+                        </tr>
+                        <tr>
+                            <td>GPUDrive</td>
+                            <td>Batch Size</td>
+                            <td>1000</td>
+                            <td>GPUDrive</td>
+                        </tr>
+                        <tr>
+                            <td>GPUDrive</td>
+                            <td>Num Worlds</td>
+                            <td>10000</td>
+                            <td>GPUDrive</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Compute Requirements</h3>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <h4>Development</h4>
+                    <p>CPU: 8-core, RAM: 32GB, GPU: Optional. For SUMO simulation and basic RL training with small networks.</p>
+                </div>
+                <div class="card">
+                    <h4>RL Training</h4>
+                    <p>GPU: 1x A100 40GB. For CityFlow/SUMO RL training with PressLight/CoLight. ~4 hours for convergence.</p>
+                </div>
+                <div class="card">
+                    <h4>GPUDrive Scale</h4>
+                    <p>GPU: 4x H100. For city-scale training with 10k+ agents. 1M steps/sec enables full city training in hours.</p>
+                </div>
+                <div class="card">
+                    <h4>Production</h4>
+                    <p>Edge: 3x edge servers for V2X processing. Cloud: Kafka cluster + GPU node for continuous retraining.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Sources Section -->
+        <section id="sources">
+            <h2><span class="icon">📚</span> Sources & References</h2>
+            
+            <h3>Academic Papers</h3>
+            
+            <ul class="source-list">
+                <li>
+                    <span class="source-icon">📄</span>
+                    <div>
+                        <strong>V2X-Enabled Real-Time Digital Twin Framework</strong> — Physical-virtual integration with sub-second synchronization, 6 RSUs, real-world deployment in Madison, WI.<br>
+                        <a href="https://arxiv.org/abs/2410.00356">arxiv.org/abs/2410.00356</a> (2024)
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">📄</span>
+                    <div>
+                        <strong>Traffic-R1: Reinforced LLMs for Traffic Signal Control</strong> — Qwen2.5-3B with GRPO, zero-shot generalization, 55k+ drivers/day deployment.<br>
+                        <a href="https://arxiv.org/abs/2508.20234">arxiv.org/abs/2508.20234</a> (2025)
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">📄</span>
+                    <div>
+                        <strong>GPUDrive: Data-driven Multi-Agent Simulation at 1M FPS</strong> — CUDA-accelerated, Waymo data, trains RL in minutes.<br>
+                        <a href="https://arxiv.org/abs/2408.01584">arxiv.org/abs/2408.01584</a> (2024)
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">📄</span>
+                    <div>
+                        <strong>Self-Regulating Cars: Automated Traffic Control in Free Flow Networks</strong> — Deep Q-learning with physics-informed state, OSM → Vissim pipeline.<br>
+                        <a href="https://arxiv.org/abs/2506.11973">arxiv.org/abs/2506.11973</a> (2025)
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">📄</span>
+                    <div>
+                        <strong>Virtual Nodes Improve Long-term Traffic Prediction</strong> — ST-GNN with virtual nodes, LargeST San Diego dataset.<br>
+                        <a href="https://arxiv.org/abs/2501.10048">arxiv.org/abs/2501.10048</a> (2025)
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">📄</span>
+                    <div>
+                        <strong>SUMO-MCP: LLM Interface for SUMO</strong> — FastMCP 2.3.1 wrapping SUMO tools for LLM agents.<br>
+                        <a href="https://arxiv.org/abs/2506.03548">arxiv.org/abs/2506.03548</a> (2025)
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">📄</span>
+                    <div>
+                        <strong>OpenTwinMap: Open-Source Digital Twin Generator</strong> — OSM → 3D environment for autonomous vehicle simulation.<br>
+                        <a href="https://arxiv.org/abs/2511.21925">arxiv.org/abs/2511.21925</a> (2025)
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">📄</span>
+                    <div>
+                        <strong>Model-Based Monitoring and State Estimation for Digital Twins</strong> — Kalman filter approach for DT synchronization.<br>
+                        <a href="https://arxiv.org/abs/2305.00252">arxiv.org/abs/2305.00252</a> (2023)
+                    </div>
+                </li>
+            </ul>
+            
+            <h3>Tools & Frameworks</h3>
+            
+            <ul class="source-list">
+                <li>
+                    <span class="source-icon">🔧</span>
+                    <div>
+                        <strong>SUMO (Simulation of Urban Mobility)</strong> — Open-source microscopic traffic simulation.<br>
+                        <a href="https://sumo.dlr.de/docs/">sumo.dlr.de/docs</a> | <a href="https://github.com/eclipse/sumo">GitHub</a>
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">🔧</span>
+                    <div>
+                        <strong>CityFlow</strong> — Fast RL-ready traffic signal control simulator.<br>
+                        <a href="https://github.com/cityflow-project/CityFlow">github.com/cityflow-project/CityFlow</a>
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">🔧</span>
+                    <div>
+                        <strong>GPUDrive</strong> — GPU-accelerated multi-agent driving simulation.<br>
+                        <a href="https://github.com/Emerge-Lab/gpudrive">github.com/Emerge-Lab/gpudrive</a>
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">🔧</span>
+                    <div>
+                        <strong>CARLA Simulator</strong> — Open-source autonomous driving simulator with Digital Twins plugin.<br>
+                        <a href="https://carla.readthedocs.io/en/latest/adv_digital_twin/">carla.readthedocs.io</a>
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">🔧</span>
+                    <div>
+                        <strong>CesiumJS</strong> — Open-source 3D globe and map visualization.<br>
+                        <a href="https://github.com/CesiumGS/cesium">github.com/CesiumGS/cesium</a>
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">🔧</span>
+                    <div>
+                        <strong>OSM2World</strong> — Convert OSM data to 3D models (OBJ, glTF).<br>
+                        <a href="https://github.com/tordanik/OSM2World">github.com/tordanik/OSM2World</a>
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">🔧</span>
+                    <div>
+                        <strong>BlenderGIS</strong> — Blender plugin for GIS data import and 3D modeling.<br>
+                        <a href="https://github.com/domlysz/BlenderGIS">github.com/domlysz/BlenderGIS</a>
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">🔧</span>
+                    <div>
+                        <strong>LibSignal</strong> — Unified library for traffic signal RL (CityFlow + SUMO).<br>
+                        <a href="https://darl-libsignal.github.io">darl-libsignal.github.io</a>
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">🔧</span>
+                    <div>
+                        <strong>sumo-rl</strong> — RL environments for SUMO (PPO, A2C, DQN).<br>
+                        <a href="https://github.com/LucasAlegre/sumo-rl">github.com/LucasAlegre/sumo-rl</a>
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">🔧</span>
+                    <div>
+                        <strong>PressLight</strong> — Max-pressure RL for traffic signal control.<br>
+                        <a href="https://github.com/wingsweihua/presslight">github.com/wingsweihua/presslight</a>
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">🔧</span>
+                    <div>
+                        <strong>CoLight</strong> — Attention-based multi-intersection RL.<br>
+                        <a href="https://github.com/wingsweihua/colight">github.com/wingsweihua/colight</a>
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">🔧</span>
+                    <div>
+                        <strong>3DCityDB</strong> — PostgreSQL/PostGIS database for CityGML data.<br>
+                        <a href="https://github.com/3dcitydb/3dcitydb">github.com/3dcitydb/3dcitydb</a>
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">🔧</span>
+                    <div>
+                        <strong>mago-3d-tiler</strong> — Convert CityGML/3DCityDB to 3D Tiles.<br>
+                        <a href="https://github.com/Gaia3D/mago-3d-tiler">github.com/Gaia3D/mago-3d-tiler</a>
+                    </div>
+                </li>
+            </ul>
+            
+            <h3>Dubai-Specific Resources</h3>
+            
+            <ul class="source-list">
+                <li>
+                    <span class="source-icon">🇦🇪</span>
+                    <div>
+                        <strong>Dubai Pulse</strong> — Central open data catalog (RTA roads, transport, weather).<br>
+                        <a href="https://dubaipulse.gov.ae">dubaipulse.gov.ae</a>
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">🇦🇪</span>
+                    <div>
+                        <strong>GeoDubai</strong> — Official geospatial platform with 3D city models.<br>
+                        <a href="https://geodubai.dm.gov.ae">geodubai.dm.gov.ae</a>
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">🇦🇪</span>
+                    <div>
+                        <strong>RTA ArcGIS Hub</strong> — Roads and transport network open data.<br>
+                        <a href="https://gis.rtadubai.opendata.arcgis.com/">gis.rtadubai.opendata.arcgis.com</a>
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">🇦🇪</span>
+                    <div>
+                        <strong>Dubai Municipality Open Data</strong> — Building permits, land use, infrastructure.<br>
+                        <a href="https://www.dm.gov.ae/open-data2/">dm.gov.ae/open-data2</a>
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">🇦🇪</span>
+                    <div>
+                        <strong>NCM Weather API</strong> — UAE National Center of Meteorology.<br>
+                        <a href="https://api.ncm.ae/documentation/">api.ncm.ae/documentation</a>
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">🇦🇪</span>
+                    <div>
+                        <strong>RTA GTFS Feed</strong> — Dubai public transit schedules.<br>
+                        <a href="https://transit.land/feeds/f-dubai~rta">transit.land/feeds/f-dubai~rta</a>
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">🇦🇪</span>
+                    <div>
+                        <strong>Dubai Live Platform</strong> — AI-powered digital twin command hub (launched Oct 2025).<br>
+                        <a href="https://dm.gov.ae/dubai-live-smart-city-platform-launched/">dm.gov.ae/dubai-live</a>
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">🇦🇪</span>
+                    <div>
+                        <strong>RTA Yutraffic FUSION</strong> — AI traffic signal control deployment (Feb 2025).<br>
+                        <a href="https://mediaoffice.ae/en/news/2025/february/24-02/rta-launches-traffic-signal-control-system-upgrade-using-ai-and-digital-twin-technology">mediaoffice.ae</a>
+                    </div>
+                </li>
+            </ul>
+            
+            <h3>Data APIs</h3>
+            
+            <ul class="source-list">
+                <li>
+                    <span class="source-icon">📡</span>
+                    <div>
+                        <strong>HERE Traffic API v7</strong> — Real-time flow, speed, jam factors.<br>
+                        <a href="https://docs.here.com/traffic-api/docs/">docs.here.com/traffic-api</a>
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">📡</span>
+                    <div>
+                        <strong>Google Maps Photorealistic 3D Tiles</strong> — Highest quality 3D buildings.<br>
+                        <a href="https://developers.google.com/maps/documentation/tile/3d-tiles">Google Dev</a>
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">📡</span>
+                    <div>
+                        <strong>Cesium OSM Buildings</strong> — Free 350M+ building 3D Tiles.<br>
+                        <a href="https://cesium.com/platform/cesium-ion/content/cesium-osm-buildings/">cesium.com</a>
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">📡</span>
+                    <div>
+                        <strong>Copernicus DEM GLO-30</strong> — Free 30m global elevation.<br>
+                        <a href="https://dataspace.copernicus.eu/">dataspace.copernicus.eu</a>
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">📡</span>
+                    <div>
+                        <strong>Overpass API</strong> — Programmatic OSM data extraction.<br>
+                        <a href="https://wiki.openstreetmap.org/wiki/Overpass_API">OSM Wiki</a>
+                    </div>
+                </li>
+                <li>
+                    <span class="source-icon">📡</span>
+                    <div>
+                        <strong>ESA WorldCover</strong> — 10m land cover classification.<br>
+                        <a href="https://esa-worldcover.org/">esa-worldcover.org</a>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        
+        <!-- Key Findings Summary -->
+        <section id="findings">
+            <h2><span class="icon">💡</span> Key Findings Summary</h2>
+            
+            <div class="card-grid">
+                <div class="card card-success">
+                    <h4>✅ What's Ready Now</h4>
+                    <ul style="margin-left: 1.5rem; color: var(--text-muted);">
+                        <li>OpenStreetMap Dubai data (roads, buildings)</li>
+                        <li>SUMO simulation with OSM import</li>
+                        <li>Cesium OSM Buildings 3D visualization</li>
+                        <li>HERE Traffic API for live data</li>
+                        <li>Dubai Pulse open datasets</li>
+                        <li>RL baselines (PressLight, CoLight)</li>
+                    </ul>
+                </div>
+                <div class="card card-warning">
+                    <h4>⚠️ What Requires Partnership</h4>
+                    <ul style="margin-left: 1.5rem; color: var(--text-muted);">
+                        <li>Real-time RTA sensor feeds</li>
+                        <li>Full 3D city model from GeoDubai</li>
+                        <li>V2X vehicle data (620 intersections)</li>
+                        <li>Live traffic camera feeds</li>
+                        <li>MBZ-SAT high-res satellite imagery</li>
+                    </ul>
+                </div>
+                <div class="card card-highlight">
+                    <h4>🚀 Competitive Advantages</h4>
+                    <ul style="margin-left: 1.5rem; color: var(--text-muted);">
+                        <li>Dubai Live platform = official support</li>
+                        <li>RTA already deploying AI signal control</li>
+                        <li>V2X infrastructure at 620 intersections</li>
+                        <li>Open data culture (Dubai Pulse)</li>
+                        <li>Strong government digital twin mandate</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>🎯 Recommended First Step</h4>
+                    <p>Start with SUMO + OSM Dubai export + HERE Traffic API. This gives you a working digital twin in 2 weeks without any partnership requirements. Then approach RTA/Dubai Municipality with a working prototype to negotiate data access.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>Dubai Network Traffic Digital Twin — Research Report</p>
+        <p>Generated: February 2025 | Sources: 25+ academic papers, 15+ tools, 10+ Dubai data portals</p>
+        <p style="margin-top: 0.5rem;">Built with data from arXiv, HuggingFace, OpenStreetMap, Dubai Municipality, and RTA.</p>
+    </footer>
+</body>
+</html>
