@@ -31,12 +31,24 @@ An end-to-end AI-powered traffic orchestration system for RTA Dubai. Replays his
 
 ```bash
 cd backend
+
+# Create and activate virtual environment
+python3 -m venv venv
+source venv/bin/activate    # macOS/Linux
+# venv\Scripts\activate     # Windows
+
+# Install dependencies
 pip install -r requirements.txt
+
 # Optional: set Mistral API key for AI optimization
 export MISTRAL_API_KEY=your_key_here
+
+# Start the server
 python main.py
 # API runs at http://localhost:8000
 ```
+
+> **Note:** The `venv/` directory is gitignored. Always activate it before running the backend.
 
 ### Frontend
 

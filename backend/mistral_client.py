@@ -14,9 +14,12 @@ load_dotenv()
 
 logger = logging.getLogger(__name__)
 
-# Attempt to import mistralai
+# Attempt to import mistralai (supports both v1.x and v2.x SDK)
 try:
-    from mistralai import Mistral
+    try:
+        from mistralai.client import Mistral  # v2.x
+    except ImportError:
+        from mistralai import Mistral  # v1.x
     HAS_MISTRAL = True
 except ImportError:
     HAS_MISTRAL = False
