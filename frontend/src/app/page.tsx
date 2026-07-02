@@ -31,6 +31,13 @@ export default function Dashboard() {
   const [error, setError] = useState<string | null>(null);
   const [mistralAvailable, setMistralAvailable] = useState(false);
   const [autoPlay, setAutoPlay] = useState(false);
+  const [playSpeed, setPlaySpeed] = useState<1 | 1.5 | 2>(1);
+  const [focus, setFocus] = useState<{
+    lat: number;
+    lng: number;
+    zoom?: number;
+    key?: number;
+  } | null>(null);
 
   // Load dates on mount
   useEffect(() => {
@@ -68,14 +75,14 @@ export default function Dashboard() {
     loadData();
   }, [loadData]);
 
-  // Auto-play through hours
+  // Auto-play through hours — base interval scales inversely with speed
   useEffect(() => {
     if (!autoPlay) return;
     const interval = setInterval(() => {
       setSelectedHour((h) => (h >= 23 ? 0 : h + 1));
-    }, 2000);
+    }, Math.round(2000 / playSpeed));
     return () => clearInterval(interval);
-  }, [autoPlay]);
+  }, [autoPlay, playSpeed]);
 
   const hours = Array.from({ length: 24 }, (_, i) => i);
 
@@ -190,6 +197,26 @@ export default function Dashboard() {
           {autoPlay ? "⏸ Pause" : "▶ Auto-Play"}
         </button>
 
+        {/* Speed selector */}
+        <div className="flex items-center gap-1 bg-[#161d2e] rounded-md border border-[#2a3550] p-0.5">
+          {([1, 1.5, 2] as const).map((s) => (
+            <button
+              key={s}
+              onClick={() => setPlaySpeed(s)}
+              disabled={!autoPlay}
+              className={`px-2 py-1 rounded text-xs font-mono transition-all ${
+                playSpeed === s
+                  ? "bg-[#004B87] text-white"
+                  : autoPlay
+                  ? "text-[#94a3b8] hover:text-white"
+                  : "text-[#475569] cursor-not-allowed"
+              }`}
+            >
+              {s}x
+            </button>
+          ))}
+        </div>
+
         {/* Loading indicator */}
         {loading && (
           <div className="flex items-center gap-2 text-xs text-[#94a3b8]">
@@ -226,6 +253,7 @@ export default function Dashboard() {
               incidents={data.incidents}
               optimized={view === "optimized"}
               optimizedJunctions={data.optimized_junctions}
+              focus={focus}
             />
           ) : (
             <div className="flex items-center justify-center h-full">
@@ -235,24 +263,29 @@ export default function Dashboard() {
 
           {/* Map legend */}
           <div className="absolute bottom-4 left-4 bg-[#0d1220]/90 backdrop-blur-sm border border-[#2a3550] rounded-lg p-3 z-[1000]">
-            <p className="text-xs font-semibold text-[#94a3b8] mb-2">Congestion</p>
-            <div className="flex flex-col gap-1">
+            <p className="text-xs font-semibold text-[#94a3b8] mb-2">
+              Flow Congestion
+            </p>
+            <div className="flex flex-col gap-1.5">
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-[#10b981]" />
+                <div className="w-8 h-1 rounded-full bg-[#10b981]" />
                 <span className="text-xs text-[#94a3b8]">Free flow</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-[#eab308]" />
+                <div className="w-8 h-1 rounded-full bg-[#eab308]" />
                 <span className="text-xs text-[#94a3b8]">Moderate</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-[#f97316]" />
+                <div className="w-8 h-1 rounded-full bg-[#f97316]" />
                 <span className="text-xs text-[#94a3b8]">Heavy</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-[#dc2626]" />
+                <div className="w-8 h-1 rounded-full bg-[#dc2626]" />
                 <span className="text-xs text-[#94a3b8]">Critical</span>
               </div>
+              <p className="text-[10px] text-[#64748b] mt-1 italic">
+                Dashes flow in traffic direction
+              </p>
             </div>
           </div>
 
@@ -302,6 +335,16 @@ export default function Dashboard() {
                 source={data.source}
                 model={data.model}
                 optimized={view === "optimized"}
+                junctions={data.baseline_junctions}
+                locations={data.locations}
+                onSelect={(lat, lng) =>
+                  setFocus({
+                    lat,
+                    lng,
+                    zoom: 15,
+                    key: Date.now(),
+                  })
+                }
               />
             )}
           </div>
