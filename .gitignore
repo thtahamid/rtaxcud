@@ -34,6 +34,9 @@ venv/
 __pycache__/
 *.pyc
 
+# Session logs
+session_logs/
+
 # vercel
 .vercel
 
