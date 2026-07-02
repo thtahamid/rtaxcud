@@ -62,13 +62,18 @@ class SimulationEngine:
                 speed = float(row["avg_speed_kph"])
                 vc = float(row["vc_ratio"])
                 los = row["level_of_service"]
+                occupancy = float(row["occupancy_pct"])
+                demand = int(row["demand_vph"])
             else:
+                # No data for this hour — fall back to location reference capacity
+                row = None
                 volume = 0
-            speed = float(row["avg_speed_kph"])
-            vc = float(row["vc_ratio"])
-            los = row["level_of_service"]
-            occupancy = float(row["occupancy_pct"])
-            demand = int(row["demand_vph"])
+                speed = int(loc["free_flow_speed_kph"])
+                vc = 0.0
+                los = "A"
+                occupancy = 0.0
+                demand = 0
+
             capacity = int(loc["capacity_vph"])
             free_flow = int(loc["free_flow_speed_kph"])
 
